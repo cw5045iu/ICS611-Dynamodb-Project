@@ -1,0 +1,23 @@
+{
+  "name": "ics611-dynamodb-project",
+  "version": "1.0.0",
+  "description": "A class project implementing web app using AWS Dynamodb and Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cw5045iu/ICS611-Dynamodb-Project.git"
+  },
+  "author": "Zach Oines",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cw5045iu/ICS611-Dynamodb-Project/issues"
+  },
+  "homepage": "https://github.com/cw5045iu/ICS611-Dynamodb-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
