@@ -1,7 +1,7 @@
 class Data {
     init () {
         return new Promise((resolve, reject) => {
-            // Initialize DynamoDb here
+            // Initialize DynamoDb here...
             if (true) {
                 resolve();
             }

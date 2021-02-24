@@ -11,7 +11,7 @@ class Controller {
                     resolve();
                 },
                 (err) => {
-                    reject();
+                    reject(err);
                 }  
             )
         });

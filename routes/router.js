@@ -1,16 +1,16 @@
-const router = require('express');
+const router = require('express').Router();
 const controller = require("../src/controller")
 
 
 router.post("/", function (req, res, next) {
-    const body = request.body;
+    const body = req.body;
     if (body) {
         controller.insertDatabase(body).then(
-            (results) => {
-                res.send();
+            (result) => {
+                res.send(result);
             },
             (error) => {
-                res.send();
+                res.send(error);
             }
         );
     } else {
