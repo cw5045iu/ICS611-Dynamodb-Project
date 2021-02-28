@@ -28,6 +28,7 @@ A class project implementing web app using AWS Dynamodb and Node.js
             * Default output format [None]: json
         * Now we are set up locally 
             * aws dynamodb list-tables --endpoint-url http://localhost:8000 
+            * aws dynamodb scan --table-name "YOUR_TABLE_NAME"
 * clone repo
 * cd into folder
 * npm install

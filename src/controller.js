@@ -1,14 +1,17 @@
 
 const Data = require("./datasource");
 class Controller {
+    constructor() {
+        this.db = Data;
+    }
     init () {
-
         return new Promise((resolve, reject) => {
-            const inits = [Data.init()];
+            
+            const inits = [this.db.init()];
 
             Promise.all(inits).then(
-                () => {
-                    resolve();
+                (res) => {
+                    resolve(res);
                 },
                 (err) => {
                     reject(err);
@@ -20,8 +23,7 @@ class Controller {
 
     insertDatabase(data) {
         return new Promise((resolve, reject) => {
-            // Call Data function to insert into rows into DynamoDb
-            Data.insertRow(data).then(
+            this.db.insert(data).then(
                 (result) => {
                     resolve(result);
                 }, 
@@ -31,6 +33,8 @@ class Controller {
             );
         });
     }
+
+
 }
 
 module.exports = new Controller
