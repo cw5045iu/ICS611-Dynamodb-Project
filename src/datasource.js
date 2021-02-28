@@ -28,6 +28,7 @@ class Data {
                     }
                 })
             } catch (error) {
+                console.error("Datasource: Intrenal error encountered when initializing database"),
                 reject(error);
             }
         });

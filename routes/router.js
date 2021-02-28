@@ -10,7 +10,8 @@ router.post("/", function (req, res, next) {
                 res.send(result);
             },
             (error) => {
-                res.send(error);
+                console.error("Router: Underlying system issue"),
+                res.status(500).send({ });
             }
         );
     } else {
