@@ -3,7 +3,7 @@ const express = require('express');
 var app = express();
 const router = require("./routes/router");
 const controller = require("./src/controller");
-const dataBaseInitializer = require("./scripts/generateGenerator");
+const dataBaseInitializer = require("./scripts/tableGenerator");
 const AWS = require('aws-sdk');
 
 // Set up process variables here
