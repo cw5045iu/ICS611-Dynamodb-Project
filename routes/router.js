@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const controller = require("../src/controller")
+const controller = require("../src/controller");
 
 
 router.post("/", function (req, res, next) {

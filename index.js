@@ -1,11 +1,36 @@
 
-const express = require('express');
+const express = require('express');  
 var app = express();
-const router = require("./routes/router")
+const router = require("./routes/router");
+const controller = require("./src/controller");
+const AWS = require('aws-sdk');
 
-// mount the router on the app
+// Set up process variables here
+const port = 8081;
+const region = "local";
+process.env.region = region;
+process.env.serverPort = port;
+
+// Set inits here
+AWS.config.update(require(`./config/${region}.json`));
+
+
+// Set up routes and middleware
+app.use(express.urlencoded(
+    {
+        extended: false,
+    }
+)); 
+app.use(express.json()); 
 app.use('/', router);
 
-app.listen(8081, function () {   
-   
-});
+controller.init().then(
+    (_) => {
+        app.listen(port, function () {   
+            console.log("Listening....")
+        });
+    },
+    (err) => {
+        throw(err);
+    } 
+);
