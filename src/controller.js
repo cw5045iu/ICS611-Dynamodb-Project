@@ -14,7 +14,7 @@ class Controller {
                     resolve(res);
                 },
                 (err) => {
-                    console.error("Controller: Error initializing"),
+                    console.error("Controller: Error initializing");
                     reject(err);
                 }  
             )
@@ -29,7 +29,7 @@ class Controller {
                     resolve(result);
                 }, 
                 (err) => {
-                    console.error("Controller: Database failed to insert row"),
+                    console.error("Controller: Database failed to insert row");
                     reject(err)
                 }
             );

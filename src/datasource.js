@@ -19,7 +19,7 @@ class Data {
                 let self = this;
                 this.db.describeTable(config, function(err, data) {
                     if (err) {
-                        console.error("Datasource: Table not initialized, please run database generation scripts"),
+                        console.error("Datasource: Table not initialized, please run database generation scripts");
                         console.error(JSON.stringify(err, null, 2));
                         reject(err);
                     } else {
@@ -28,7 +28,7 @@ class Data {
                     }
                 })
             } catch (error) {
-                console.error("Datasource: Intrenal error encountered when initializing database"),
+                console.error("Datasource: Intrenal error encountered when initializing database");
                 reject(error);
             }
         });
@@ -45,7 +45,7 @@ class Data {
             };
             this.client.put(params, function(err, data) {
                 if (err) {
-                    console.error("Datasource: Could not insert row into table")
+                    console.error("Datasource: Could not insert row into table");
                     reject(err);
                 } else {
                     resolve(data);
