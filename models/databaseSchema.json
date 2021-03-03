@@ -1,0 +1,13 @@
+{
+    "TableName": "NYCWeather",
+    "KeySchema": [
+        { "AttributeName": "date", "KeyType": "HASH" }
+    ],
+    "AttributeDefinitions": [
+        { "AttributeName": "date", "AttributeType": "S" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 5,
+      "WriteCapacityUnits": 5
+    }
+}

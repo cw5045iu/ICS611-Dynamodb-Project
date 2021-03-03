@@ -11,7 +11,7 @@ class Data {
 
         return new Promise((resolve, reject) => {
             try {
-                this.table = require("../models/schema.json").TableName
+                this.table = require("../models/databaseSchema.json").TableName
                 let config = {
                     TableName: this.table
                 };
@@ -38,10 +38,7 @@ class Data {
         return new Promise((resolve, reject) => {
             const params = {
                 TableName: this.table,
-                Item: {
-                  year: element.year,
-                  title: element.title
-                }
+                Item: element
             };
             this.client.put(params, function(err, data) {
                 if (err) {

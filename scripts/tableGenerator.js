@@ -1,18 +1,29 @@
 const AWS = require('aws-sdk');
-let table = require("../models/schema.json");
-let db = new AWS.DynamoDB();
+const table = require("../models/databaseSchema.json");
+const datasource = require('../src/datasource');
+const config = require("../config/local.json");
+AWS.config.update(config);
+const db = new AWS.DynamoDB();
 
-module.exports = function () {
-    db.createTable(table, function(err, data) {
-        if (err) {
-            if (err.code === "ResourceInUseException") {
-                resolve()
-            } else {
-                console.error("Unable to initialize table: ", JSON.stringify(err, null, 2));
-                reject(err);
-            }
-        } else {
-            resolve(data);
+db.createTable(table, function(err, data) {
+    if (err) {
+        if (err.code != "ResourceInUseException") {
+            console.error("Unable to initialize table: ", JSON.stringify(err, null, 2));
+            reject(err);
         }
-    });
-}
+    } 
+
+    datasource.init().then(
+        (_) => {
+            let data = require("../data/NYCWeather.json");
+            for (index in data) {
+                row = data[index];
+                datasource.insert(row).then();
+            } 
+        },
+        (err) => {
+            console.error("Could not load data into DynamoDb");
+            reject(err);
+        }  
+    );
+});

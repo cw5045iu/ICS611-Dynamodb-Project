@@ -1,0 +1,173 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "date": "2014-7-2",
+            "actual_mean_temp": "82",
+            "actual_min_temp": "72",
+            "actual_max_temp": "91",
+            "average_min_temp": "68",
+            "average_max_temp": "83",
+            "record_min_temp": "56",
+            "record_max_temp": "100",
+            "record_min_temp_year": "2001",
+            "record_max_temp_year": "1966",
+            "actual_precipitation": "0.96",
+            "average_precipitation": "0.13",
+            "record_precipitation": "1.79"
+        }
+    ],
+    "required": [
+        "date",
+        "actual_mean_temp",
+        "actual_min_temp",
+        "actual_max_temp",
+        "average_min_temp",
+        "average_max_temp",
+        "record_min_temp",
+        "record_max_temp",
+        "record_min_temp_year",
+        "record_max_temp_year",
+        "actual_precipitation",
+        "average_precipitation",
+        "record_precipitation"
+    ],
+    "properties": {
+        "date": {
+            "$id": "#/properties/date",
+            "type": "string",
+            "title": "The date schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2014-7-2"
+            ]
+        },
+        "actual_mean_temp": {
+            "$id": "#/properties/actual_mean_temp",
+            "type": "string",
+            "title": "The actual_mean_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "82"
+            ]
+        },
+        "actual_min_temp": {
+            "$id": "#/properties/actual_min_temp",
+            "type": "string",
+            "title": "The actual_min_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "72"
+            ]
+        },
+        "actual_max_temp": {
+            "$id": "#/properties/actual_max_temp",
+            "type": "string",
+            "title": "The actual_max_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "91"
+            ]
+        },
+        "average_min_temp": {
+            "$id": "#/properties/average_min_temp",
+            "type": "string",
+            "title": "The average_min_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "68"
+            ]
+        },
+        "average_max_temp": {
+            "$id": "#/properties/average_max_temp",
+            "type": "string",
+            "title": "The average_max_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "83"
+            ]
+        },
+        "record_min_temp": {
+            "$id": "#/properties/record_min_temp",
+            "type": "string",
+            "title": "The record_min_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "56"
+            ]
+        },
+        "record_max_temp": {
+            "$id": "#/properties/record_max_temp",
+            "type": "string",
+            "title": "The record_max_temp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "100"
+            ]
+        },
+        "record_min_temp_year": {
+            "$id": "#/properties/record_min_temp_year",
+            "type": "string",
+            "title": "The record_min_temp_year schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2001"
+            ]
+        },
+        "record_max_temp_year": {
+            "$id": "#/properties/record_max_temp_year",
+            "type": "string",
+            "title": "The record_max_temp_year schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "1966"
+            ]
+        },
+        "actual_precipitation": {
+            "$id": "#/properties/actual_precipitation",
+            "type": "string",
+            "title": "The actual_precipitation schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "0.96"
+            ]
+        },
+        "average_precipitation": {
+            "$id": "#/properties/average_precipitation",
+            "type": "string",
+            "title": "The average_precipitation schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "0.13"
+            ]
+        },
+        "record_precipitation": {
+            "$id": "#/properties/record_precipitation",
+            "type": "string",
+            "title": "The record_precipitation schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "1.79"
+            ]
+        }
+    },
+    "additionalProperties": true
+}

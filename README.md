@@ -1,5 +1,5 @@
 # ICS611-Dynamodb-Project
-A class project implementing web app using AWS Dynamodb and Node.js
+A class project implementing web app using AWS Dynamodb and Node.js for NYC Weather data
 
 
 # Setup and Installation
@@ -17,7 +17,7 @@ A class project implementing web app using AWS Dynamodb and Node.js
     * extract
 * Run local DynamoDb instance
     * navigate to folder in previous step
-    * Run "java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb"
+    * Run "java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb" to start
 * Run AWS CLI
     * Open new terminal and navigate to "/usr/local/Cellar/awscli/{version number}" 
     * Run "aws configure" in terminal
@@ -26,9 +26,14 @@ A class project implementing web app using AWS Dynamodb and Node.js
             * AWS Secret Access Key [None]: 123ABC
             * Default region name [None]: local
             * Default output format [None]: json
-        * Now we are set up locally 
+        * Create a new table 
+            * aws dynamodb create-table --cli-input-json {full path}/models/databaseSchema.json --endpoint-url http://localhost:8000
+        * To create and fill a table with Weather data
+            * Run "node /scripts/tableGenerator.js"
+        * Check the new table
             * aws dynamodb list-tables --endpoint-url http://localhost:8000 
-            * aws dynamodb scan --table-name "YOUR_TABLE_NAME"
+            * aws dynamodb scan --table-name "NYCWeather"
+        
 * clone repo
 * cd into folder
 * npm install
