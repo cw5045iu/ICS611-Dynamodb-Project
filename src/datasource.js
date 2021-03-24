@@ -34,6 +34,35 @@ class Data {
         });
     }
 
+    getEntriesOnRange(start, end) {
+        const params = {
+
+            TableName: this.table,
+            // IndexName: "date",
+            FilterExpression: "#date BETWEEN :from AND :to",
+            ExpressionAttributeNames:{
+                "#date": "date"
+            },
+            ExpressionAttributeValues: {
+                ":from": start,
+                ":to": end 
+            },
+            ProjectionExpression: "#date, actual_max_temp",
+            ScanIndexForward: true
+        };
+
+        return new Promise((resolve, reject) => {
+            this.client.scan( params, function(err, data) {
+                if (err) {
+                    console.error("Datasource: Could not retrieve results");
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
     insert(element) {
         return new Promise((resolve, reject) => {
             const params = {

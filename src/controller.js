@@ -17,9 +17,8 @@ class Controller {
                     console.error("Controller: Error initializing");
                     reject(err);
                 }  
-            )
+            );
         });
-
     }
 
     insertDatabase(data) {
@@ -36,7 +35,21 @@ class Controller {
         });
     }
 
-
+    getMaxTempOnRange(start, end) {
+        return new Promise((resolve, reject) => {
+            this.db.getEntriesOnRange(start, end).then(
+                (result) => {
+                    let items = Object.values(result.Items);
+                    let temp = Math.max.apply(Math, items.map(function(o) { return o.actual_max_temp; }));
+                    resolve(temp);
+                }, 
+                (err) => {
+                    console.error(`Controller: Database failed get max temps between ${start} and ${end}`);
+                    reject(err);
+                }
+            );
+        });
+    }
 }
 
 module.exports = new Controller
