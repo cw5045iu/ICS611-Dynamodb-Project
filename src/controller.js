@@ -57,11 +57,26 @@ class Controller {
                 (result) => {
                     resolve({
                         min : result.actual_min_temp,
-                        max : result.actual_max_temp
+                        max : result.actual_max_temp,
+                        date : result.date
                     });
                 }, 
                 (err) => {
                     console.error(`Controller: Database failed get MIN/MAX temp data for ${date}`);
+                    reject(err);
+                }
+            );
+        });
+    }
+
+    getPrecipitations(from, minPrecipitation) {
+        return new Promise((resolve, reject) => {
+            this.db.getPrecipitations(from, minPrecipitation).then(
+                (results) => {
+                    resolve(results);
+                }, 
+                (err) => {
+                    console.error(`Controller: Database failed get record precipitation data`);
                     reject(err);
                 }
             );

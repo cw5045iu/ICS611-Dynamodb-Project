@@ -38,7 +38,6 @@ class Data {
         const params = {
 
             TableName: this.table,
-            // IndexName: "date",
             FilterExpression: "#date BETWEEN :from AND :to",
             ExpressionAttributeNames:{
                 "#date": "date"
@@ -97,6 +96,36 @@ class Data {
                     resolve(data.Item);
                 }
             })
+        });
+    }
+
+    getPrecipitations(from, minPrecipitation) {
+        return new Promise((resolve, reject) => {
+            const params = {
+
+                TableName: this.table,
+                FilterExpression: "#date > :from AND #actual_precipitation > :precipitation",
+                ExpressionAttributeNames:{
+                    "#date": "date",
+                    "#actual_precipitation" : "actual_precipitation"
+                },
+                ExpressionAttributeValues: {
+                    ":from": from,
+                    ":precipitation": minPrecipitation 
+                },
+                ProjectionExpression: "#date, #actual_precipitation",
+                ScanIndexForward: true
+            };
+    
+            
+            this.client.scan( params, function(err, data) {
+                if (err) {
+                    console.error("Datasource: Could not retrieve results");
+                    reject(err);
+                } else {
+                    resolve(data.Items);
+                }
+            });
         });
     }
 }
