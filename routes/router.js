@@ -34,6 +34,48 @@ router.post("/", function (req, res, next) {
 router.get("/getMaxTemp", function (req, res, next) {
     controller.getMaxTempOnRange(req.body.start, req.body.end).then(
         (result) => {
+
+
+            res.send({
+                startDate: req.body.start, 
+                endDate: req.body.end,
+                maxTemp: result
+            });
+        },
+        (_) => {
+            console.error("Router: Underlying system issue");
+            res.status(500).send({ "Internal Error" : "Our site encountered an issue"});
+            next();
+        }
+    );
+});
+
+/*
+    Retrieve Min/Max temps of day
+*/
+router.get("/getMinMaxTemp", function (req, res, next) {
+    controller.getMinMaxTemp(req.body.date).then(
+        (temp) => {
+            res.send({
+                min: temp.min, 
+                max: temp.max,
+                date: req.body.date
+            });
+        },
+        (_) => {
+            console.error("Router: Underlying system issue");
+            res.status(500).send({ "Internal Error" : "Our site encountered an issue"});
+            next();
+        }
+    );
+});
+
+/*
+    Retrieve high over period
+*/
+router.get("/getMaxTemp", function (req, res, next) {
+    controller.getMaxTempOnRange(req.body.start, req.body.end).then(
+        (result) => {
             res.send({
                 startDate: req.body.start, 
                 endDate: req.body.end,

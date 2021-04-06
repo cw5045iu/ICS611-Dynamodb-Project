@@ -79,6 +79,26 @@ class Data {
             })
         });
     } 
+
+    getRecord(date) {
+        return new Promise((resolve, reject) => {
+            const params = {
+                TableName: this.table,
+                Key: {
+                    'date': date 
+                }
+                // ProjectionExpression: '#date, actual_mean_temp, actual_min_temp, actual_max_temp, average_min_temp, average_max_temp,record_min_temp, record_max_temp, record_max_temp_year, actual_precipitation, average_precipitation, record_precipitation'
+            };
+            this.client.get(params, function(err, data) {
+                if (err) {
+                    console.error("Datasource: Could not get row from table");
+                    reject(err);
+                } else {
+                    resolve(data.Item);
+                }
+            })
+        });
+    }
 }
 
 module.exports = new Data;

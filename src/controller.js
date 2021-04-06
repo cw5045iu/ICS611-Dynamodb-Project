@@ -50,6 +50,23 @@ class Controller {
             );
         });
     }
+
+    getMinMaxTemp(date) {
+        return new Promise((resolve, reject) => {
+            this.db.getRecord(date).then(
+                (result) => {
+                    resolve({
+                        min : result.actual_min_temp,
+                        max : result.actual_max_temp
+                    });
+                }, 
+                (err) => {
+                    console.error(`Controller: Database failed get MIN/MAX temp data for ${date}`);
+                    reject(err);
+                }
+            );
+        });
+    }
 }
 
-module.exports = new Controller
+module.exports = new Controller;
