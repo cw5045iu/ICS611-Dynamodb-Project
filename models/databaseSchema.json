@@ -6,7 +6,7 @@
         { "AttributeName": "date", "KeyType": "RANGE" }
     ],
     "AttributeDefinitions": [
-        { "AttributeName": "ID", "AttributeType": "N" },
+        { "AttributeName": "ID", "AttributeType": "S" },
         { "AttributeName": "date", "AttributeType": "N" }
     ],
     "ProvisionedThroughput": {

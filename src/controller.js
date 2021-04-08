@@ -1,5 +1,7 @@
 
 const Data = require("./datasource");
+const uuid = require('uuid');
+
 class Controller {
     constructor() {
         this.db = Data;
@@ -22,6 +24,8 @@ class Controller {
     }
 
     insertDatabase(data) {
+        data.ID = uuid.v4();
+        data.date = (new Date(data.date)).valueOf();
         return new Promise((resolve, reject) => {
             this.db.insert(data).then(
                 (result) => {

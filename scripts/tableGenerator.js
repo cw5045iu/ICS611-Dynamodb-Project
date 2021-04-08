@@ -2,6 +2,7 @@ const AWS = require('aws-sdk');
 const table = require("../models/databaseSchema.json");
 const datasource = require('../src/datasource');
 const config = require("../config/local.json");
+const uuid = require('uuid');
 AWS.config.update(config);
 const db = new AWS.DynamoDB();
 
@@ -16,13 +17,10 @@ db.createTable(table, function(err, data) {
     datasource.init().then(
         (_) => {
             let data = require("../data/NYCWeather.json");
-            let id = 0;
             for (index in data) {
-
                 row = data[index];
-                row.ID = id;
+                row.ID = uuid.v4();
                 row.date = new Date(row.date).valueOf();
-                id++;
                 datasource.insert(row).then();
             } 
         },
