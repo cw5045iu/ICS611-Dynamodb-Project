@@ -16,8 +16,13 @@ db.createTable(table, function(err, data) {
     datasource.init().then(
         (_) => {
             let data = require("../data/NYCWeather.json");
+            let id = 0;
             for (index in data) {
+
                 row = data[index];
+                row.ID = id;
+                row.date = new Date(row.date).valueOf();
+                id++;
                 datasource.insert(row).then();
             } 
         },

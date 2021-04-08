@@ -43,8 +43,8 @@ class Data {
                 "#date": "date"
             },
             ExpressionAttributeValues: {
-                ":from": start,
-                ":to": end 
+                ":from": (new Date(start)).valueOf(),
+                ":to": (new Date(end)).valueOf() 
             },
             ProjectionExpression: "#date, actual_max_temp",
             ScanIndexForward: true
@@ -56,7 +56,7 @@ class Data {
                     console.error("Datasource: Could not retrieve results");
                     reject(err);
                 } else {
-                    resolve(data);
+                    resolve(data.Items);
                 }
             });
         });
@@ -80,20 +80,29 @@ class Data {
     } 
 
     getRecord(date) {
+        
+        let from = new Date(date);    
+        const params = {
+
+            TableName: this.table,
+            FilterExpression: "#date = :from",
+            ExpressionAttributeNames:{
+                "#date": "date"
+            },
+            ExpressionAttributeValues: {
+                ":from": from.valueOf(),
+            },
+            ScanIndexForward: true
+        };
+
+
         return new Promise((resolve, reject) => {
-            const params = {
-                TableName: this.table,
-                Key: {
-                    'date': date 
-                }
-                // ProjectionExpression: '#date, actual_mean_temp, actual_min_temp, actual_max_temp, average_min_temp, average_max_temp,record_min_temp, record_max_temp, record_max_temp_year, actual_precipitation, average_precipitation, record_precipitation'
-            };
-            this.client.get(params, function(err, data) {
+            this.client.scan(params, function(err, data) {
                 if (err) {
                     console.error("Datasource: Could not get row from table");
                     reject(err);
                 } else {
-                    resolve(data.Item);
+                    resolve(data.Items);
                 }
             })
         });
@@ -110,7 +119,7 @@ class Data {
                     "#actual_precipitation" : "actual_precipitation"
                 },
                 ExpressionAttributeValues: {
-                    ":from": from,
+                    ":from": new Date(from).valueOf(),
                     ":precipitation": minPrecipitation 
                 },
                 ProjectionExpression: "#date, #actual_precipitation",
@@ -118,6 +127,45 @@ class Data {
             };
     
             
+            this.client.scan( params, function(err, data) {
+                if (err) {
+                    console.error("Datasource: Could not retrieve results");
+                    reject(err);
+                } else {
+                    resolve(data.Items);
+                }
+            });
+        });
+    }
+
+    addDays(date, days) {
+        let oldDate = new Date(date);
+        let newDate = new Date(oldDate.valueOf());
+
+        newDate.setDate(newDate.getDate() + days);
+        return newDate;
+    }
+
+    getPreviousSevenDayForcast(start) {
+        let from = new Date(start);
+        let to = this.addDays(from, 6);
+        
+        const params = {
+
+            TableName: this.table,
+            FilterExpression: "#date BETWEEN :from AND :to",
+            ExpressionAttributeNames:{
+                "#date": "date"
+            },
+            ExpressionAttributeValues: {
+                ":from": from.valueOf(),
+                ":to": to.valueOf()
+            },
+            ProjectionExpression: "#date, actual_mean_temp, actual_min_temp, actual_max_temp, average_min_temp, average_max_temp,record_min_temp, record_max_temp, record_max_temp_year, actual_precipitation, average_precipitation, record_precipitation",
+            ScanIndexForward: true
+        };
+
+        return new Promise((resolve, reject) => {
             this.client.scan( params, function(err, data) {
                 if (err) {
                     console.error("Datasource: Could not retrieve results");

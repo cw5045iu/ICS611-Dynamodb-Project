@@ -101,5 +101,21 @@ router.get("/getPrecipitations", function (req, res, next) {
     );
 });
 
+/*
+    Retrieve previous seven day forcast
+*/
+router.get("/getPreviousSevenDayForcast", function (req, res, next) {
+    controller.getPreviousSevenDayForcast(req.body.start).then(
+        (result) => {
+            res.status(200).send(result);
+        },
+        (_) => {
+            console.error("Router: Underlying system issue");
+            res.status(500).send({ "Internal Error" : "Our site encountered an issue"});
+            next();
+        }
+    );
+});
+
 module.exports = router;
 

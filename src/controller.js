@@ -38,9 +38,12 @@ class Controller {
     getMaxTempOnRange(start, end) {
         return new Promise((resolve, reject) => {
             this.db.getEntriesOnRange(start, end).then(
-                (result) => {
-                    let items = Object.values(result.Items);
-                    let temp = Math.max.apply(Math, items.map(function(o) { return o.actual_max_temp; }));
+                (results) => {
+                    results.forEach(e => {
+                        e.date = new Date(e.date);
+                    });
+                    results.sort((a, b) => b.date - a.date);
+                    let temp = Math.max.apply(Math, results.map(function(o) { return o.actual_max_temp; }));
                     resolve(temp);
                 }, 
                 (err) => {
@@ -54,11 +57,15 @@ class Controller {
     getMinMaxTemp(date) {
         return new Promise((resolve, reject) => {
             this.db.getRecord(date).then(
-                (result) => {
+                (results) => {
+                    results.forEach(e => {
+                        e.date = new Date(e.date);
+                    });
+                    results.sort((a, b) => b.date - a.date);
                     resolve({
-                        min : result.actual_min_temp,
-                        max : result.actual_max_temp,
-                        date : result.date
+                        min : results[0].actual_min_temp,
+                        max : results[0].actual_max_temp,
+                        date : results[0].date
                     });
                 }, 
                 (err) => {
@@ -73,6 +80,10 @@ class Controller {
         return new Promise((resolve, reject) => {
             this.db.getPrecipitations(from, minPrecipitation).then(
                 (results) => {
+                    results.forEach(e => {
+                        e.date = new Date(e.date);
+                    });
+                    results.sort((a, b) => b.date - a.date);
                     resolve(results);
                 }, 
                 (err) => {
@@ -82,6 +93,24 @@ class Controller {
             );
         });
     }
+
+    getPreviousSevenDayForcast(start) {
+        return new Promise((resolve, reject) => {
+            this.db.getPreviousSevenDayForcast(start).then(
+                (results) => {
+                    results.forEach(e => {
+                        e.date = new Date(e.date);
+                    });
+                    results.sort((a, b) => b.date - a.date);
+                    resolve(results);
+                }, 
+                (err) => {
+                    console.error(`Controller: Database failed get seven day forcast form database`);
+                    reject(err);
+                }
+            );
+        });
+    }   
 }
 
 module.exports = new Controller;

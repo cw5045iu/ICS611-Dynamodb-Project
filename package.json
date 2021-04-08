@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "debug": "nodemon index.js",
-    "generateDatabase" : "node /scripts/tableGenerator.js"
+    "generateDatabase" : "node ./scripts/tableGenerator.js",
+    "deleteDatabase" : "node ./scripts/deleteTable.js"
   },
   "repository": {
     "type": "git",
